@@ -1,0 +1,157 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Enhancer</title>
+    <style>
+         body {
+            font-family: Arial, sans-serif;
+            background-color: rgb(129, 13, 206);
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        input[type="file"] {
+            padding: 10px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .image-section {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .image-container {
+            flex: 0 0 calc(50% - 20px);
+            margin: 10px;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .image-container:hover {
+            transform: scale(1.05);
+        }
+
+        .image-container img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .image-container h2 {
+            text-align: center;
+            margin: 0;
+            padding: 10px 0;
+            background-color: #333;
+            color: #fff;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .download-button {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .download-button button {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .download-button button:hover {
+            background-color: #45a049;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Image Enhancer</h1>
+        <form action="/" method="post" enctype="multipart/form-data">
+            <input type="file" name="Imagefile">
+            <input type="submit" value="Enhance Image">
+        </form>
+        
+        <div class="image-section">
+            {% if original_image %}
+            <div class="image-container">
+                <h2>Original Image</h2>
+                <img src="{{ original_image }}" alt="Original Image">
+            </div>
+            {% endif %}
+
+            {% if enhanced_image %}
+            <div class="image-container">
+                <h2>Enhanced Image</h2>
+                <img src="{{ enhanced_image }}" alt="Enhanced Image">
+                <!-- Download button for enhanced image -->
+                <a href="{{ enhanced_image }}" download="enhanced_image.png"><div class="download-button"><button> Enhanced Image</button></div></a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <script >
+        // JavaScript for zooming images on hover
+const images = document.querySelectorAll('.zoom-img');
+
+images.forEach(image => {
+    image.addEventListener('mouseenter', () => {
+        image.style.transform = 'scale(1.1)';
+    });
+
+    image.addEventListener('mouseleave', () => {
+        image.style.transform = 'scale(1)';
+    });
+});
+
+    </script>
+</body>
+</html>
